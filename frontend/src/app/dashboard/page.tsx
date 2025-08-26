@@ -1,9 +1,19 @@
-import { ProtectedRoute } from "@/components/auth/protected-route"
+import { auth } from '@clerk/nextjs/server'
+import { redirect } from 'next/navigation'
 import { UserMenu } from "@/components/auth/user-menu"
+import { BackendTest } from "@/components/backend-test"
+import { OnboardingCheck } from "@/components/onboarding-check"
 
-export default function DashboardPage() {
-  return (
-    <ProtectedRoute>
+export default async function DashboardPage() {
+  const { userId } = await auth()
+  
+  if (!userId) {
+    redirect('/login')
+  }
+
+    return (
+    <>
+      <OnboardingCheck />
       <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
@@ -15,6 +25,7 @@ export default function DashboardPage() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <UserMenu />
+            <BackendTest />
             
             <div className="space-y-6">
               <div className="bg-white shadow rounded-lg p-6">
@@ -46,6 +57,6 @@ export default function DashboardPage() {
           </div>
         </div>
       </div>
-    </ProtectedRoute>
+    </>
   )
 }

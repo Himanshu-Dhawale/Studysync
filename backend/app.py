@@ -16,5 +16,9 @@ with app.app_context():
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
 
+@app.route('/health')
+def health_check():
+    return {"status": "healthy", "message": "StudySync API is running"}
+
 if __name__ =="__main__":
     app.run(debug=True)
