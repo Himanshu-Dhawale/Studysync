@@ -270,7 +270,7 @@ export default function OnboardingSurvey() {
             {/* Step 2: Academic Goal */}
             {currentStep === 2 && (
               <div className="space-y-8">
-                <h2 className="text-2xl font-bold text-gray-900">What's your primary academic goal?</h2>
+                <h2 className="text-2xl font-bold text-gray-900">What&apos;s your primary academic goal?</h2>
                 <div className="space-y-4">
                   {academicGoals.map((goal) => {
                     const Icon = goal.icon
@@ -351,7 +351,7 @@ export default function OnboardingSurvey() {
             {/* Step 5: Study Style */}
             {currentStep === 5 && (
               <div className="space-y-8">
-                <h2 className="text-2xl font-bold text-gray-900">What's your preferred study style?</h2>
+                <h2 className="text-2xl font-bold text-gray-900">What&apos;s your preferred study style?</h2>
                 <div className="grid grid-cols-2 gap-4">
                   {studyStyles.map((style) => {
                     const Icon = style.icon

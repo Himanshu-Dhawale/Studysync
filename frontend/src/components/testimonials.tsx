@@ -1,3 +1,5 @@
+import Image from "next/image"
+
 const testimonials = [
   {
     name: "Sarah Chen",
@@ -33,9 +35,11 @@ export default function Testimonials() {
           {testimonials.map((testimonial, index) => (
             <div key={index} className="bg-gray-50 p-8 rounded-2xl">
               <div className="flex items-center mb-6">
-                <img
+                <Image
                   src={testimonial.avatar || "/placeholder.svg"}
                   alt={testimonial.name}
+                  width={48}
+                  height={48}
                   className="w-12 h-12 rounded-full mr-4"
                 />
                 <div className="text-left">
@@ -43,7 +47,7 @@ export default function Testimonials() {
                   <p className="text-sm text-gray-600">{testimonial.role}</p>
                 </div>
               </div>
-              <p className="text-gray-700 italic">"{testimonial.quote}"</p>
+              <p className="text-gray-700 italic">&ldquo;{testimonial.quote}&rdquo;</p>
             </div>
           ))}
         </div>

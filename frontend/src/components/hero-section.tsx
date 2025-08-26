@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Play } from "lucide-react"
+import Image from "next/image"
 
 export default function HeroSection() {
   return (
@@ -33,9 +34,11 @@ export default function HeroSection() {
           </div>
 
           <div className="relative">
-            <img
+            <Image
               src="/placeholder.svg?height=500&width=600"
               alt="Students studying together"
+              width={600}
+              height={500}
               className="w-full h-auto rounded-2xl shadow-2xl"
             />
           </div>
