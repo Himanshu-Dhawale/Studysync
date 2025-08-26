@@ -15,7 +15,6 @@ const authConfig = {
         }
 
         try {
-          // TODO: Replace with your actual API endpoint
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/login`, {
             method: 'POST',
             headers: {
@@ -31,8 +30,12 @@ const authConfig = {
             return null
           }
 
-          const user = await response.json()
-          return user
+          const userData = await response.json()
+          return {
+            id: userData.id,
+            email: userData.email,
+            name: userData.name
+          }
         } catch (error) {
           console.error('Auth error:', error)
           return null

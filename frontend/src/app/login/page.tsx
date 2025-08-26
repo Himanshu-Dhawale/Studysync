@@ -1,5 +1,9 @@
-import LoginForm from "@/components/login-form"
+import { SignIn } from '@clerk/nextjs'
 
 export default function LoginPage() {
-  return <LoginForm />
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 to-blue-100">
+      <SignIn redirectUrl="/onboarding" />
+    </div>
+  )
 }
