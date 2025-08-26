@@ -104,13 +104,7 @@ export default function OnboardingSurvey() {
   }
 
   const handleNext = async () => {
-    if (currentStep === 3) {
-      setIsProcessing(true)
-      // Simulate AI processing
-      await new Promise((resolve) => setTimeout(resolve, 3000))
-      setIsProcessing(false)
-      setCurrentStep(4)
-    } else if (currentStep < totalSteps) {
+    if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1)
     }
   }
@@ -121,10 +115,29 @@ export default function OnboardingSurvey() {
     }
   }
 
-  const handleComplete = () => {
+  const handleComplete = async () => {
+    // Show loading screen
+    setIsProcessing(true)
+    
+    // Simulate AI processing
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+    
     // Handle survey completion
     console.log("Survey completed:", surveyData)
-    // Redirect to dashboard or next step
+    
+    // Save onboarding completion status
+    try {
+      // You can save this to your backend or localStorage
+      localStorage.setItem('onboardingCompleted', 'true')
+      localStorage.setItem('onboardingData', JSON.stringify(surveyData))
+    } catch (error) {
+      console.error('Error saving onboarding data:', error)
+    }
+    
+    setIsProcessing(false)
+    
+    // Redirect to dashboard
+    window.location.href = "/dashboard"
   }
 
   if (isProcessing) {
