@@ -1,18 +1,25 @@
 from flask import Flask 
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
+from flask_migrate import Migrate  # Import Flask-Migrate
 from models.user_model import db
+from models.blacklist_model import TokenBlacklist
 from config import Config
 from auth.routes import auth_bp
 
 app = Flask(__name__)
 app.config.from_object(Config)
 CORS(app)
-JWTManager(app)
+jwt = JWTManager(app)
 db.init_app(app)
+migrate = Migrate(app, db) # Initialize Flask-Migrate
 
-with app.app_context():
-    db.create_all()
+@jwt.token_in_blocklist_loader
+def check_if_token_in_blacklist(jwt_header, jwt_payload):
+    jti = jwt_payload["jti"]
+    token = db.session.query(TokenBlacklist.id).filter_by(jti=jti).one_or_none()
+    return token is not None
+
 
 app.register_blueprint(auth_bp, url_prefix="/auth")
 

@@ -8,7 +8,11 @@ venv/
 
 # Environment and secrets
 *.env
-backend/credentials.json
+*.json
 
 # VS Code
 .vscode/
+
+# Flask
+instance/
+*.db
