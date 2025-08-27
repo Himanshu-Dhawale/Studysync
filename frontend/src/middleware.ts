@@ -33,7 +33,7 @@ export const runtime = 'nodejs';
 
 // Define which routes require authentication
 const isProtectedRoute = createRouteMatcher([
-  '/onboarding-survey(.*)',
+  '/onboarding(.*)',
   '/dashboard(.*)',
 ]);
 
