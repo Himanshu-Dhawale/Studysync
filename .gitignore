@@ -16,3 +16,4 @@ venv/
 # Flask
 instance/
 *.db
+__pycache__/
