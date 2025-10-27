@@ -103,8 +103,26 @@ export default function OnboardingSurvey() {
     }))
   }
 
+  // Validation functions for each step
+  const isStepValid = () => {
+    switch (currentStep) {
+      case 1:
+        return surveyData.subjects.length > 0
+      case 2:
+        return surveyData.academicGoal !== ""
+      case 3:
+        return surveyData.studyTime !== ""
+      case 4:
+        return surveyData.sessionLength !== ""
+      case 5:
+        return surveyData.studyStyle !== ""
+      default:
+        return false
+    }
+  }
+
   const handleNext = async () => {
-    if (currentStep < totalSteps) {
+    if (currentStep < totalSteps && isStepValid()) {
       setCurrentStep(currentStep + 1)
     }
   }
@@ -116,6 +134,8 @@ export default function OnboardingSurvey() {
   }
 
   const handleComplete = async () => {
+    if (!isStepValid()) return
+    
     // Show loading screen
     setIsProcessing(true)
     
@@ -264,6 +284,9 @@ export default function OnboardingSurvey() {
                     )
                   })}
                 </div>
+                {surveyData.subjects.length === 0 && (
+                  <p className="text-red-500 text-sm text-center">Please select at least one subject to continue</p>
+                )}
               </div>
             )}
 
@@ -291,6 +314,9 @@ export default function OnboardingSurvey() {
                     )
                   })}
                 </div>
+                {!surveyData.academicGoal && (
+                  <p className="text-red-500 text-sm text-center">Please select an academic goal to continue</p>
+                )}
               </div>
             )}
 
@@ -318,6 +344,9 @@ export default function OnboardingSurvey() {
                     )
                   })}
                 </div>
+                {!surveyData.studyTime && (
+                  <p className="text-red-500 text-sm text-center">Please select a study time preference to continue</p>
+                )}
               </div>
             )}
 
@@ -345,6 +374,9 @@ export default function OnboardingSurvey() {
                     )
                   })}
                 </div>
+                {!surveyData.sessionLength && (
+                  <p className="text-red-500 text-sm text-center">Please select a session length to continue</p>
+                )}
               </div>
             )}
 
@@ -372,6 +404,9 @@ export default function OnboardingSurvey() {
                     )
                   })}
                 </div>
+                {!surveyData.studyStyle && (
+                  <p className="text-red-500 text-sm text-center">Please select a study style to continue</p>
+                )}
               </div>
             )}
 
@@ -390,13 +425,18 @@ export default function OnboardingSurvey() {
               {currentStep === totalSteps ? (
                 <Button
                   onClick={handleComplete}
-                  className="bg-purple-600 hover:bg-purple-700 flex items-center space-x-2"
+                  disabled={!isStepValid()}
+                  className="bg-purple-600 hover:bg-purple-700 flex items-center space-x-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
                 >
                   <span>Complete Setup</span>
                   <Check className="w-4 h-4" />
                 </Button>
               ) : (
-                <Button onClick={handleNext} className="bg-purple-600 hover:bg-purple-700 flex items-center space-x-2">
+                <Button 
+                  onClick={handleNext} 
+                  disabled={!isStepValid()}
+                  className="bg-purple-600 hover:bg-purple-700 flex items-center space-x-2 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                >
                   <span>Next</span>
                   <ChevronRight className="w-4 h-4" />
                 </Button>
